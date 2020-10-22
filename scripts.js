@@ -11,12 +11,27 @@
 
 
 var numeriRandomPC = [];  // INIZIALIZZO ARRAY
-var tiriConsentiti = 84;
+var bombe = 16;
 var numeriUtente = [];
+var numMinRange = 1;
+var numMaxRange = 0;
 
+var difficolta = prompt('scegli una difficolta fra facile - media - difficile');
+
+if (difficolta == 'facile') {
+    numMaxRange = 100;
+}
+else if (difficolta == 'media') {
+    numMaxRange = 80;
+}
+else if (difficolta == 'difficile') {
+    numMaxRange = 50;
+}
+
+var tiriConsentiti = numMaxRange - bombe;
 
 while (numeriRandomPC.length < 16) {    // genero 16 numeri random (da 1 a 100) e pusho in numeriRandomPC
-    var bomba = (getRndInteger(1, 100));
+    var bomba = (getRndInteger(numMinRange, numMaxRange));
     if (!numeriRandomPC.includes(bomba)){  // se non è incluso allora lo pusho
         numeriRandomPC.push(bomba);
     }
@@ -40,7 +55,6 @@ do {
         numeriUtente.push(tiroUtente);
 
         for (var i = 0; i < numeriRandomPC.length && esito!=true; i++) {  // ciclo finchè non scorro tutto l'array e l'esito sia diverso da true
-            console.log(numeriRandomPC[i]);
 
             if (tiroUtente != numeriRandomPC[i]){
                 esito = false;
@@ -56,7 +70,7 @@ do {
 }
 while (esito == false && numeroTiriUtente < tiriConsentiti) // resta nel ciclo finchè esito è uguale a falso e numeroTiriUtente è < di tiriConsentiti
 
-console.log('il tuo punteggio: ' + (numeroTiriUtente - 1) + ' su 84');  // stampo il punteggio e lo stampo col -1 perchè l'ultimo tiro non bisogna conteggiarlo
+console.log('il tuo punteggio: ' + (numeroTiriUtente - 1) + ' su ' + tiriConsentiti);  // stampo il punteggio e lo stampo col -1 perchè l'ultimo tiro non bisogna conteggiarlo
 
 
 
