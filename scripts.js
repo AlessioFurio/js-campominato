@@ -12,6 +12,7 @@
 
 var numeriRandomPC = [];  // INIZIALIZZO ARRAY
 var tiriConsentiti = 84;
+var numeriUtente = [];
 
 
 while (numeriRandomPC.length < 16) {    // genero 16 numeri random (da 1 a 100) e pusho in numeriRandomPC
@@ -30,29 +31,32 @@ do {
     var tiroUtente = parseInt(prompt('scegli un numero fra 1 e 100'));  //chiedo un numero all'utente
     console.log('hai digitato: ' + tiroUtente);
 
-    for (var i = 0; i < numeriRandomPC.length && esito!=true; i++) {  // ciclo finchè non scorro tutto l'array e l'esito sia diverso da true
-        console.log(numeriRandomPC[i]);
-
-        if (tiroUtente != numeriRandomPC[i]){
-            esito = false;
-        }
-        else {
-            esito = true;  // esci dal ciclo perchè hai beccato una bomba
-        }
-
+    if (numeriUtente.includes(tiroUtente)) {
+        alert('hai gia digitato qst numero')
+        console.log('inserisci un numero diverso');
     }
-    numeroTiriUtente++;  // aggiorno il conteggio del punteggio
-    console.log('il numero di tiri che Alessio ha fatto: ' + numeroTiriUtente);
+
+    else {
+        numeriUtente.push(tiroUtente);
+
+        for (var i = 0; i < numeriRandomPC.length && esito!=true; i++) {  // ciclo finchè non scorro tutto l'array e l'esito sia diverso da true
+            console.log(numeriRandomPC[i]);
+
+            if (tiroUtente != numeriRandomPC[i]){
+                esito = false;
+            }
+            else {
+                esito = true;  // esci dal ciclo perchè hai beccato una bomba
+            }
+
+        }
+        numeroTiriUtente++;  // aggiorno il conteggio del punteggio
+        console.log('il numero di tiri che Alessio ha fatto: ' + numeroTiriUtente);
+    }
 }
 while (esito == false && numeroTiriUtente < tiriConsentiti) // resta nel ciclo finchè esito è uguale a falso e numeroTiriUtente è < di tiriConsentiti
 
 console.log('il tuo punteggio: ' + (numeroTiriUtente - 1) + ' su 84');  // stampo il punteggio e lo stampo col -1 perchè l'ultimo tiro non bisogna conteggiarlo
-
-
-
-
-
-
 
 
 
