@@ -18,6 +18,7 @@ var numMaxRange = 0;
 
 var difficolta = prompt('scegli una difficolta fra facile - media - difficile');
 
+
 if (difficolta == 'facile') {
     numMaxRange = 100;
 }
@@ -39,38 +40,52 @@ while (numeriRandomPC.length < 16) {    // genero 16 numeri random (da 1 a 100) 
 
 console.log(numeriRandomPC);  //stampo array
 
-var numeroTiriUtente = 0;
 
+var numeroTiriUtente = 0;
 do {
     var esito = false;  // inizializzo la var esito su false
     var tiroUtente = parseInt(prompt('scegli un numero fra 1 e 100'));  //chiedo un numero all'utente
-    console.log('hai digitato: ' + tiroUtente);
 
-    if (numeriUtente.includes(tiroUtente)) {
-        alert('hai gia digitato qst numero')
-        console.log('inserisci un numero diverso');
+    if (isNaN(tiroUtente)==false && tiroUtente >=1 && tiroUtente <=100){
+
+        console.log('hai digitato: ' + tiroUtente);
+
+        if (numeriUtente.includes(tiroUtente)) {
+            alert('hai gia digitato qst numero')
+            console.log('inserisci un numero diverso');
+        }
+
+        else {
+            numeriUtente.push(tiroUtente);
+
+            for (var i = 0; i < numeriRandomPC.length && esito!=true; i++) {  // ciclo finchè non scorro tutto l'array e l'esito sia diverso da true
+
+                if (tiroUtente != numeriRandomPC[i]){
+                    esito = false;
+                }
+                else {
+                    esito = true;  // esci dal ciclo perchè hai beccato una bomba
+
+                }
+
+            }
+            console.log('il numero di tiri che Alessio ha fatto: ' + numeroTiriUtente);
+        }
+
+        if (esito == false) {
+            numeroTiriUtente++;
+        }  // aggiorno il conteggio del punteggio
     }
 
     else {
-        numeriUtente.push(tiroUtente);
-
-        for (var i = 0; i < numeriRandomPC.length && esito!=true; i++) {  // ciclo finchè non scorro tutto l'array e l'esito sia diverso da true
-
-            if (tiroUtente != numeriRandomPC[i]){
-                esito = false;
-            }
-            else {
-                esito = true;  // esci dal ciclo perchè hai beccato una bomba
-            }
-
-        }
-        numeroTiriUtente++;  // aggiorno il conteggio del punteggio
-        console.log('il numero di tiri che Alessio ha fatto: ' + numeroTiriUtente);
+        alert('numero inserito NON valido');
     }
+
 }
 while (esito == false && numeroTiriUtente < tiriConsentiti) // resta nel ciclo finchè esito è uguale a falso e numeroTiriUtente è < di tiriConsentiti
 
-console.log('il tuo punteggio: ' + (numeroTiriUtente - 1) + ' su ' + tiriConsentiti);  // stampo il punteggio e lo stampo col -1 perchè l'ultimo tiro non bisogna conteggiarlo
+var punteggioFinale = punteggio(numeroTiriUtente);
+console.log('il tuo punteggio: ' + punteggioFinale + ' su ' + tiriConsentiti);  // stampo il punteggio e lo stampo col -1 perchè l'ultimo tiro non bisogna conteggiarlo
 
 
 
@@ -78,4 +93,10 @@ console.log('il tuo punteggio: ' + (numeroTiriUtente - 1) + ' su ' + tiriConsent
 // GENERATORE NUMERI RANDOM PER PC
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+
+function punteggio (numeroTiriUtente1) {
+    var risultato = numeroTiriUtente1 ;
+    return risultato;
 }
